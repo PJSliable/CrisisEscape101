@@ -7,7 +7,9 @@ from . import text_similarity
 def speech_processing(request):
     
     speech_to_text.stt()
-    text_similarity.ts()
+
+    sentence = ()
+    text_similarity.ts(sentence)
 
     a = 0
     if a:
