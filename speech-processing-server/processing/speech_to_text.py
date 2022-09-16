@@ -6,5 +6,7 @@
 # 고급 모델: $0.009/15초** - 무료 크레딧으로 8333시간 20분 사용 가능
 # ** 각 요청은 15초 단위로 올림됩니다.
 
-def stt():
-    pass
+def stt(audiofile):
+    
+    stt_text = ''
+    return stt_text
