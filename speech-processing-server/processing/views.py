@@ -5,13 +5,14 @@ from . import text_similarity
 
 @api_view(['GET'])
 def speech_processing(request):
-    
-    speech_to_text.stt()
+    text = request.GET.get("text")
+    audiofile = request.FILES["audio"]
 
-    sentence = ()
-    text_similarity.ts(sentence)
+    stt_text = speech_to_text.stt(audiofile)
 
-    a = 0
-    if a:
+    sentence = (text, stt_text)
+    similarity = text_similarity.ts(sentence)
+
+    if similarity >= 0.7:
         return Response(data={'message':True})
     return Response(data={'message':False})
