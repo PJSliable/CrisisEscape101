@@ -6,41 +6,44 @@
 # 고급 모델: $0.009/15초** - 무료 크레딧으로 8333시간 20분 사용 가능
 # ** 각 요청은 15초 단위로 올림됩니다.
 
-def stt(): # audiofile
-    # [START speech_quickstart]
+def stt(speech_file): # audiofile
     import io
-
-    # Imports the Google Cloud client library
-    # [START migration_import]
     from google.cloud import speech
-    # [END migration_import]
 
     # Instantiates a client
-    # [START migration_client]
     client = speech.SpeechClient()
-    # [END migration_client]
 
-
-    speech_file = './sample.wav'
-    with io.open(speech_file, 'rb') as audio_file:
-        content = audio_file.read()
-        
-    audio = speech.RecognitionAudio(content=content)
+    # local file test
+    # with io.open(speech_file, 'rb') as audio_file:
+    #     content = audio_file.read()
+    # audio = speech.RecognitionAudio(content=content)
     
-    # audio = audiofile
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=16000,
         language_code='ko-KR')
+    
+    # config = speech.RecognitionConfig(
+    #     encoding=speech.RecognitionConfig.AudioEncoding.FLAC,
+    #     sample_rate_hertz=48000,
+    #     audio_channel_count=2,
+    #     language_code="ko-KR",
+    #     model="command_and_search"
+    # )
+    
+    content = speech_file.chunks() # .read()
+    audio = speech.RecognitionAudio(content=content)
 
     # Detects speech in the audio file
     response = client.recognize(config=config, audio=audio)
     print(response)
+    stt_text = ''
     for result in response.results:
         stt_text = result.alternatives[0].transcript
-        print('Transcript: {}'.format(result.alternatives[0].transcript))
+        print(u"Transcript: {}".format(result.alternatives[0].transcript))
+        
+    return stt_text
 
-    # return stt_text
-
-if __name__ == '__main__':
-    stt()
+# local file test
+# speech_file = './sample.flac'
+# stt(speech_file)
