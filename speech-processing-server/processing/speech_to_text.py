@@ -21,7 +21,7 @@ def stt(): # audiofile
     # [END migration_client]
 
 
-    speech_file = './sample.wav'
+    speech_file = './sample1.wav'
     with io.open(speech_file, 'rb') as audio_file:
         content = audio_file.read()
         
@@ -30,17 +30,19 @@ def stt(): # audiofile
     # audio = audiofile
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=16000,
+        sample_rate_hertz=48000,
+        audio_channel_count = 2,
         language_code='ko-KR')
 
     # Detects speech in the audio file
     response = client.recognize(config=config, audio=audio)
-    print(response)
+    #print(response)
     for result in response.results:
         stt_text = result.alternatives[0].transcript
-        print('Transcript: {}'.format(result.alternatives[0].transcript))
+        print(stt_text)
+        #print('Transcript: {}'.format(result.alternatives[0].transcript))
 
-    # return stt_text
+    return stt_text
 
 if __name__ == '__main__':
     stt()
