@@ -20,7 +20,8 @@ def stt(speech_file): # audiofile
     
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=16000,
+        sample_rate_hertz=48000,
+        audio_channel_count = 2,
         language_code='ko-KR')
     
     # config = speech.RecognitionConfig(
