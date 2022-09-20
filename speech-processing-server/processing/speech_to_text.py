@@ -32,7 +32,7 @@ def stt(speech_file): # audiofile
     #     model="command_and_search"
     # )
     
-    content = speech_file.chunks() # .read()
+    content = speech_file.read() # .read() .chunk()
     audio = speech.RecognitionAudio(content=content)
 
     # Detects speech in the audio file
