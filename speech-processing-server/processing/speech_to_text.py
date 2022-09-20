@@ -32,16 +32,16 @@ def stt(speech_file): # audiofile
     #     model="command_and_search"
     # )
     
-    content = speech_file.chunks() # .read()
+    content = speech_file.read() # .chunks()
     audio = speech.RecognitionAudio(content=content)
 
     # Detects speech in the audio file
     response = client.recognize(config=config, audio=audio)
-    print(response)
+    # print(response)
     stt_text = ''
     for result in response.results:
         stt_text = result.alternatives[0].transcript
-        print(u"Transcript: {}".format(result.alternatives[0].transcript))
+        print(u"Audio Transcript: {}".format(result.alternatives[0].transcript))
         
     return stt_text
 
