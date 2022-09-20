@@ -16,3 +16,4 @@ def speech_processing(request):
     if similarity >= 0.6:
         return Response(data={'message':True})
     return Response(data={'message':False})
+    
