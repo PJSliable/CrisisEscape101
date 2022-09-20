@@ -1,4 +1,4 @@
-def text_similarity(sentence):
+def ts(sentence):
     
     from sklearn.feature_extraction.text import TfidfVectorizer
 
