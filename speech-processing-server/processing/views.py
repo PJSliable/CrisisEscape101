@@ -26,7 +26,7 @@ def speech_processing(request):
     # similarity = error_rate_cal.wer(text, stt_text)
     
     print('similarity: ',similarity)
-    if similarity <= 0.3:
+    if similarity <= 0.2: # 0.3
         return Response(data={'message':True})
     return Response(data={'message':False})
     
