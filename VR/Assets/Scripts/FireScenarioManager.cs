@@ -14,14 +14,14 @@ public class FireScenarioManager : MonoBehaviour
 
     public static int stage = 0;
 
-    void Start()
+    void Awake ()
     {
         object1.GetComponent<XRGrabInteractable>().enabled = true;
         object1.GetComponent<Sequence>().enabled = true;
         object2.GetComponent<XRGrabInteractable>().enabled = false;
-        object1.GetComponent<Sequence>().enabled = false;
+        object2.GetComponent<Sequence>().enabled = false;
         object3.GetComponent<XRGrabInteractable>().enabled = false;
-        object1.GetComponent<Sequence>().enabled = false;
+        object3.GetComponent<Sequence>().enabled = false;
     }
 
     // Update is called once per frame

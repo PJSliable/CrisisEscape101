@@ -41,6 +41,7 @@ public class Sequence : MonoBehaviour
 
     protected void UpdateColor()
     {
+        Debug.Log("Event Listener Added!" + this.name);
         var color = m_Interactable.isSelected
             ? s_SelectedColor
             : m_Interactable.isHovered
