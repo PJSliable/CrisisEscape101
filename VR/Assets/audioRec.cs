@@ -18,7 +18,7 @@ public class audioRec : MonoBehaviour
     }
     public void SaveVoice()
     {
-        SavWav.Save("Voice1", audio.clip);
+        SavWav.Save("C:/Users/SSAFY/Desktop/pjt 2/vr/S07P22A101/VR/Assets/Voice", audio.clip);
     }
 
     public void InputVoice()
@@ -28,7 +28,6 @@ public class audioRec : MonoBehaviour
             useMicrophone = true;
             if (useMicrophone)
             {
-                selectedDevice = Microphone.devices[0].ToString();//디바이스 선택
                 Microphone.Start(selectedDevice, true, 5, AudioSettings.outputSampleRate); //마이크 입력 시작
 
                 Invoke("SaveVoice", 3);
