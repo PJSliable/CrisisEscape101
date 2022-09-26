@@ -8,10 +8,10 @@ from . import error_rate_cal
 def speech_processing(request):
     text = request.POST.get("text", None)
     
-    # speech_file = request.FILES["audio"]
-    speech_file = request.FILES.get('audio', None)
-    if text == None or speech_file == None:
-        return Response(data={'message':"text or audio data is invalid"})
+    speech_file = request.FILES["audio"]
+    # speech_file = request.FILES.get('audio', None)
+    # if text == None or speech_file == None:
+    #     return Response(data={'message':"text or audio data is invalid"})
     
     print('text:',text)
     stt_text = speech_to_text.stt(speech_file)
