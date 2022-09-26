@@ -78,7 +78,7 @@ public static class SavWav
 		return clip;
 	}
 
-	static FileStream CreateEmpty(string filepath)
+	public static FileStream CreateEmpty(string filepath)
 	{
 		var fileStream = new FileStream(filepath, FileMode.Create);
 		byte emptyByte = new byte();
@@ -91,7 +91,7 @@ public static class SavWav
 		return fileStream;
 	}
 
-	static void ConvertAndWrite(FileStream fileStream, AudioClip clip)
+	public static void ConvertAndWrite(FileStream fileStream, AudioClip clip)
 	{
 
 		var samples = new float[clip.samples];
@@ -118,7 +118,7 @@ public static class SavWav
 		fileStream.Write(bytesData, 0, bytesData.Length);
 	}
 
-	static void WriteHeader(FileStream fileStream, AudioClip clip)
+	public static void WriteHeader(FileStream fileStream, AudioClip clip)
 	{
 
 		var hz = clip.frequency;

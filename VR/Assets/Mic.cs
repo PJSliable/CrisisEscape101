@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.IO;
 
 public class Mic : MonoBehaviour
 {
@@ -14,7 +16,16 @@ public class Mic : MonoBehaviour
 
     public void PlaySnd()
     {
+
+        /*    using (var fileStream = SavWav.CreateEmpty(Path.Combine(Application.persistentDataPath, filename);))
+        {
+
+            SavWav.ConvertAndWrite(fileStream, aud.clip);
+
+            SavWav.WriteHeader(fileStream, aud.clip);
+        };*/
         SavWav.Save("C:/Users/SSAFY/Desktop/pjt 2/vr/S07P22A101/VR/Assets/Voice/voice1", aud.clip);
+
     }
 
     public void RecSnd()

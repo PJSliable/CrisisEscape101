@@ -3,19 +3,23 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
-public class server : MonoBehaviour
+public class MyBehavior : MonoBehaviour
 {
+    public string STTtext;
+    AudioClip STTaudio;
+
     void Start()
     {
-        StartCoroutine(Upload());
+        StartCoroutine(Upload(STTtext, STTaudio));
     }
 
-    IEnumerator Upload()
+    IEnumerator Upload(string STTtext, file)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("myField", "myData");
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("text", STTtext));
+        formData.Add(new MultipartFormFileSection("audio", STTaudio));
 
-        UnityWebRequest www = UnityWebRequest.Post("http://j7a101.p.ssafy.io:8080/api/v1/processing/", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://j7a101.p.ssafy.io:8080/api/v1/processing/", formData);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
