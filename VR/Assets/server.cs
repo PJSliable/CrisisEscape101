@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
-
+using MiniJSON;
 
 public class server : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class server : MonoBehaviour
     {
         Debug.Log("STTaudio is " + STTaudio);   
         StartCoroutine(Upload(STTtext, STTaudio));
+
 
     }
 
@@ -29,12 +30,12 @@ public class server : MonoBehaviour
 
 
         formData.Add(new MultipartFormDataSection("text", stttext));
-        formData.Add(new MultipartFormFileSection("audio", sttaudio));
+        formData.Add(new MultipartFormDataSection("audio", sttaudio));
 
         Debug.Log("formData");
         Debug.Log(formData[1]);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://j7a101.p.ssafy.io:8080/api/v1/processing/", formData);
+        UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8000/api/v1/processing/", formData);
         www.SetRequestHeader("Content-Type", "multipart/form-data; boundary=<calculated when request is sent>");
         yield return www.SendWebRequest();
         Debug.Log("Status Code: " + www.responseCode);
@@ -47,6 +48,8 @@ public class server : MonoBehaviour
         else
         {
             Debug.Log("Form upload complete!");
+            Dictionary<string, object> response = Json.Deserialize(www.downloadHandler.text) as Dictionary<string, object>;
+            Debug.Log(response["message"]);
         }
     }
 }

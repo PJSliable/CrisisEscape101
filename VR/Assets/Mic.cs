@@ -20,10 +20,10 @@ public class Mic : MonoBehaviour
     {
 
         Debug.Log("1");
-        SavWav.Save("C:/Users/SSAFY/Desktop/pjt 2/vr/S07P22A101/VR/Assets/Voice/voice1", aud.clip);
+        //SavWav.Save("C:/Users/SSAFY/Desktop/pjt 2/vr/S07P22A101/VR/Assets/Voice/voice1", aud.clip);
 
         httprequest = GetComponent<server>();
-        httprequest.STTtext = "불이야 불이야 불이야";
+        httprequest.STTtext = "불이야";
 
         Debug.Log(httprequest.STTtext);
 
@@ -51,13 +51,14 @@ public class Mic : MonoBehaviour
         httprequest.Ready();
         
 
+
         Debug.Log("됐다!");
     }
 
     public void RecSnd()
     {
 
-        aud.clip = Microphone.Start(Microphone.devices[0].ToString(), false, 5, 441000);
+        //aud.clip = Microphone.Start(Microphone.devices[0].ToString(), false, 10, 441000);
 
     }
 }
