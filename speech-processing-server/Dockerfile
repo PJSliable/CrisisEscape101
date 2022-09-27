@@ -5,4 +5,5 @@ COPY requirements.txt ./
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY . .
-CMD ["gunicorn", "speech-processing-server.wsgi", "--bind", "0.0.0.0:8080"]
+ENV GOOGLE_APPLICATION_CREDENTIALS=/var/jenkins_home/workspace/S07P22A101/speech-processing-server/stt-server-362705-5ece33093944.json
+CMD ["gunicorn", "config.wsgi", "--bind", "0.0.0.0:8080"]
