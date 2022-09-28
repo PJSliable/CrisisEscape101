@@ -3,23 +3,27 @@ from rest_framework.response import Response
 from . import speech_to_text
 from . import text_similarity
 from . import error_rate_cal
-import sys
 
 @api_view(['POST'])
 def speech_processing(request):
-    return Response(data={'message':True})
-    text = request.POST.get("text", None)
     
+    text = request.POST.get("text", None)
+    print('text: ',text)
     # speech_file = request.POST.get['audio'] # _bf
 
-    # f = open('./temp.wav’,’wb')
-    # f.write(speech_file_bf.encode())
+    speech_file = request.POST.get('audio','') # .get("audio","")
+    
+    speech_file = bytes(speech_file, 'utf-8')
+    
+    # f = open("C:\\Users\\SSAFY\\Desktop\\temp\\voice.wav",'wb')
+    # f.write(speech_file)
     # f.close()
 
-    # speech_file = open('./temp.wav', 'rb')
-
-    speech_file = request.FILES["audio"]
-
+    with open("C:\\Users\\SSAFY\\Desktop\\temp\\voice.wav", mode='bx') as f:
+        f.write(speech_file)
+    f.close()
+    
+    print(type(speech_file))
 
     # speech_file = request.FILES.get('audio', None)
     # if text == None or speech_file == None:
