@@ -29,7 +29,6 @@ public class PinFall : MonoBehaviour
 
     void DestroyPin()
     {
-        Debug.Log("");
         Destroy(this.gameObject);
     }
 }
