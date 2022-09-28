@@ -7,21 +7,22 @@ import sys
 
 @api_view(['POST'])
 def speech_processing(request):
-    return Response(data={'message':True})
+    return Response(data={'message':False})
     text = request.POST.get("text", None)
     
-    # speech_file = request.POST.get['audio'] # _bf
-
-    # f = open('./temp.wav’,’wb')
+    # speech_file_bf = request.data.get("audio") # _bf
+    speech_file = request.FILES.get("audio")
+    # print(speech_file)
+    # print(type(speech_file_bf))
+    # f = open('./temp.wav','rb')
     # f.write(speech_file_bf.encode())
     # f.close()
 
     # speech_file = open('./temp.wav', 'rb')
 
-    speech_file = request.FILES["audio"]
 
 
-    # speech_file = request.FILES.get('audio', None)
+    # speech_file = request.POST['audio']
     # if text == None or speech_file == None:
     #     return Response(data={'message':"text or audio data is invalid"})
     
