@@ -57,7 +57,7 @@ QualitySettings:
     skinWeights: 2
     textureQuality: 0
     anisotropicTextures: 0
-    antiAliasing: 0
+    antiAliasing: 2
     softParticles: 0
     softVegetation: 0
     realtimeReflectionProbes: 0
@@ -227,7 +227,7 @@ QualitySettings:
     Lumin: 5
     Nintendo Switch: 5
     PS4: 5
-    Standalone: 5
+    Standalone: 4
     WebGL: 3
     Windows Store Apps: 5
     XboxOne: 5
