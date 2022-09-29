@@ -36,12 +36,12 @@ public class FireScenarioManager : MonoBehaviour
         GasMask.profile.TryGet(out vg);
 
 
-        object1.SetActive(true);
-        object2.SetActive(false);
-        object3.SetActive(false);
-        object4.SetActive(false);
-        object5.SetActive(false);
-        object6.SetActive(false);
+        //object1.SetActive(false);
+        //object2.SetActive(false);
+        //object3.SetActive(false);
+        //object4.SetActive(false);
+        //object5.SetActive(false);
+        //object6.SetActive(false);
     }
 
 }

@@ -21,6 +21,7 @@ public class GasMaskInteraction : MonoBehaviour
     {
         FireScenarioManager.isGasMaskOn = true;
         FireScenarioManager.GasMaskEffect();
-        Destroy(this);
+        Destroy(gameObject);
+        Debug.Log("Wear GasMask!");
     }
 }
