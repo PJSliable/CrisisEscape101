@@ -5,11 +5,12 @@ using UnityEngine;
 public class CloseCanvas : MonoBehaviour
 {
     public GameObject item;
+    public float delay;
 
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("Close", 7f);
+        Invoke("Close", delay);
     }
 
     // Update is called once per frame
