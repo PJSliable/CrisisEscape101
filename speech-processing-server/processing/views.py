@@ -6,29 +6,8 @@ from . import error_rate_cal
 
 @api_view(['POST'])
 def speech_processing(request):
-    
-    text = request.POST.get("text", None)
-    print('text: ',text)
-    # speech_file = request.POST.get['audio'] # _bf
-
-    speech_file = request.POST.get('audio','') # .get("audio","")
-    
-    speech_file = bytes(speech_file, 'utf-8')
-    
-    # f = open("C:\\Users\\SSAFY\\Desktop\\temp\\voice.wav",'wb')
-    # f.write(speech_file)
-    # f.close()
-
-    with open("C:\\Users\\SSAFY\\Desktop\\temp\\voice.wav", mode='bx') as f:
-        f.write(speech_file)
-    f.close()
-    
-    print(type(speech_file))
-
-    # speech_file = request.FILES.get('audio', None)
-    # if text == None or speech_file == None:
-    #     return Response(data={'message':"text or audio data is invalid"})
-    
+    text = request.data.get("text", None)
+    speech_file = request.FILES.get("audio")
     
     stt_text = speech_to_text.stt(speech_file)
 
