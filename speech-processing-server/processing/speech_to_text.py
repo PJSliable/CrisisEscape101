@@ -16,7 +16,7 @@ def stt(speech_file): # audiofile
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=48000, # 8000 Hz and 48000 Hz are supported within Speech-to-Text.
-        audio_channel_count = 1,
+        audio_channel_count = 2,# 2
         language_code='ko-KR')
     
     content = speech_file.read() 
