@@ -1,68 +1,106 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
-using System;
+using System.Linq;
+using System.Net;
+using System.Text;
 using MiniJSON;
+using UnityEngine;
 
-public class server : MonoBehaviour
+public class Server : MonoBehaviour
 {
-    public string STTtext;
-    public byte[] STTaudio;
-    public AudioClip STTclip;
-    public GameObject item;
+    GameObject item;
     GameObject temp;
-
-    public void Ready()
+    public void Ready(string stttext)
     {
-        Debug.Log("STTaudio is " + STTaudio);   
-        StartCoroutine(Upload(STTtext, STTaudio));
-        temp = GameObject.Find("STTMic1");
-        item = GameObject.Find("STT1Canvas");
+
+        string fileLocation = Application.persistentDataPath + "/audio.wav";
+        NameValueCollection values = new NameValueCollection();
+        NameValueCollection files = new NameValueCollection();
+        values.Add("text", stttext);
+        files.Add("audio", fileLocation);
+        string response_json = sendHttpRequest("http://127.0.0.1:8000/api/v1/processing/", values, files);
+
+        Dictionary<string, object> response = Json.Deserialize(response_json) as Dictionary<string, object>;
+
+        Debug.Log(response["message"]); //True Or False
+        temp = GameObject.Find("STT1");
+        item = GameObject.Find("CanvasSTT1");
+        if (response["message"] == "False")
+        {
+            item.SetActive(true);
+            temp.GetComponent<Mic>().enabled = false;
+        }
 
     }
 
-    IEnumerator Upload(string stttext, byte[] sttaudio)
+
+    private static string sendHttpRequest(string url, NameValueCollection values, NameValueCollection files = null)
     {
+        string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");
+        // The first boundary
+        byte[] boundaryBytes = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "\r\n");
+        // The last boundary
+        byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+        // The first time it itereates, we need to make sure it doesn't put too many new paragraphs down or it completely messes up poor webbrick
+        byte[] boundaryBytesF = System.Text.Encoding.ASCII.GetBytes("--" + boundary + "\r\n");
 
+        // Create the request and set parameters
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+        request.ContentType = "multipart/form-data; boundary=" + boundary;
+        request.Method = "POST";
+        request.KeepAlive = true;
+        request.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        // Get request stream
+        Stream requestStream = request.GetRequestStream();
 
-        Debug.Log("stttext is " + stttext);
-        Debug.Log("sttaudio is " + sttaudio);
-
-
-        formData.Add(new MultipartFormDataSection("text", stttext));
-        formData.Add(new MultipartFormFileSection("audio", sttaudio)); //, "byte[]"
-
-        Debug.Log("formData");
-        Debug.Log(formData[1]);
-
-        UnityWebRequest www = UnityWebRequest.Post("http://127.0.0.1:8000/api/v1/processing/", formData);
-        www.SetRequestHeader("Content-Type", "multipart/form-data; boundary=<calculated when request is sent>");
-        www.chunkedTransfer = false;
-        yield return www.SendWebRequest();
-        Debug.Log("Status Code: " + www.responseCode);
-
-        if (www.isNetworkError || www.isHttpError)
+        foreach (string key in values.Keys)
         {
-            Debug.Log(www.error);
-            Debug.Log("에러");
+            // Write item to stream
+            byte[] formItemBytes = System.Text.Encoding.UTF8.GetBytes(string.Format("Content-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}", key, values[key]));
+            requestStream.Write(boundaryBytes, 0, boundaryBytes.Length);
+            requestStream.Write(formItemBytes, 0, formItemBytes.Length);
         }
-        else
+
+        if (files != null)
         {
-            Debug.Log("Form upload complete!");
-            Dictionary<string, object> response = Json.Deserialize(www.downloadHandler.text) as Dictionary<string, object>;
-            if (response["message"] == "True")
+            foreach (string key in files.Keys)
             {
-                item.SetActive(false);
-            } else
-            {
-                item.SetActive(true);
-                temp.GetComponent<Mic>().enabled = true;
+                if (File.Exists(files[key]))
+                {
+                    int bytesRead = 0;
+                    byte[] buffer = new byte[2048];
+                    byte[] formItemBytes = System.Text.Encoding.UTF8.GetBytes(string.Format("Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n", key, files[key]));
+                    requestStream.Write(boundaryBytes, 0, boundaryBytes.Length);
+                    requestStream.Write(formItemBytes, 0, formItemBytes.Length);
+
+                    using (FileStream fileStream = new FileStream(files[key], FileMode.Open, FileAccess.Read))
+                    {
+                        while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                        {
+                            // Write file content to stream, byte by byte
+                            requestStream.Write(buffer, 0, bytesRead);
+                        }
+
+                        fileStream.Close();
+                    }
+                }
             }
-            Debug.Log(response["message"]);
         }
+
+
+
+        // Write trailer and close stream
+        requestStream.Write(trailer, 0, trailer.Length);
+        requestStream.Close();
+
+        using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
+        {
+            return reader.ReadToEnd();
+        };
     }
+
 }

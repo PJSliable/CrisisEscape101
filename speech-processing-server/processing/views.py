@@ -3,29 +3,11 @@ from rest_framework.response import Response
 from . import speech_to_text
 from . import text_similarity
 from . import error_rate_cal
-import sys
 
 @api_view(['POST'])
 def speech_processing(request):
-    return Response(data={'message':False})
-    text = request.POST.get("text", None)
-    
-    # speech_file_bf = request.data.get("audio") # _bf
+    text = request.data.get("text", None)
     speech_file = request.FILES.get("audio")
-    # print(speech_file)
-    # print(type(speech_file_bf))
-    # f = open('./temp.wav','rb')
-    # f.write(speech_file_bf.encode())
-    # f.close()
-
-    # speech_file = open('./temp.wav', 'rb')
-
-
-
-    # speech_file = request.POST['audio']
-    # if text == None or speech_file == None:
-    #     return Response(data={'message':"text or audio data is invalid"})
-    
     
     stt_text = speech_to_text.stt(speech_file)
 
@@ -46,4 +28,3 @@ def speech_processing(request):
     if similarity <= 0.2: # 0.3
         return Response(data={'message':True})
     return Response(data={'message':False})
-    

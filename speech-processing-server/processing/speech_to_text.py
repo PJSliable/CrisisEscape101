@@ -12,27 +12,14 @@ def stt(speech_file): # audiofile
 
     # Instantiates a client
     client = speech.SpeechClient()
-
-    # local file test
-    # with io.open(speech_file, 'rb') as audio_file:
-    #     content = audio_file.read()
-    # audio = speech.RecognitionAudio(content=content)
     
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=48000, #  48000, 8000 Hz and 48000 Hz are supported within Speech-to-Text.
-        audio_channel_count = 1, # 2
+        sample_rate_hertz=48000, # 8000 Hz and 48000 Hz are supported within Speech-to-Text.
+        audio_channel_count = 1,
         language_code='ko-KR')
     
-    # config = speech.RecognitionConfig(
-    #     encoding=speech.RecognitionConfig.AudioEncoding.FLAC,
-    #     sample_rate_hertz=48000,
-    #     audio_channel_count=2,
-    #     language_code="ko-KR",
-    #     model="command_and_search"
-    # )
-    
-    content = speech_file.read() # .chunks()
+    content = speech_file.read() 
     audio = speech.RecognitionAudio(content=content)
 
     # Detects speech in the audio file
@@ -44,7 +31,3 @@ def stt(speech_file): # audiofile
         print(u"Audio Transcript: {}".format(result.alternatives[0].transcript))
         
     return stt_text
-
-# local file test
-# speech_file = './sample.flac'
-# stt(speech_file)
