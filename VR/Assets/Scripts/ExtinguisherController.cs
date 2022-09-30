@@ -25,12 +25,14 @@ public class ExtinguisherController : MonoBehaviour
     {
         if (pinObject != null)
             pinObject.GetComponent<XRBaseInteractable>().enabled = false;
+        powderParticles.Stop();
     }
 
     void ActivatePin()
     {
         if (pinObject != null)
             pinObject.GetComponent<XRBaseInteractable>().enabled = true;
-        powderParticles.Play();
+        if (pinObject == null || pinObject.GetComponent<Joint>() == null)
+            powderParticles.Play();
     }
 }
