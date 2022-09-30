@@ -3,62 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.EventSystems;
 
 public class Mic : MonoBehaviour
 {
-    AudioSource aud;
-    server httprequest;
+    public AudioSource aud;
+    server2 httprequest;
+    Mic tempMic;
+
+    
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void OnEnable()
+    {   
         aud = GetComponent<AudioSource>();
+        tempMic = GetComponent<Mic>();
         Debug.Log("Audio source: " + aud, gameObject);
+        Invoke("RecSnd", 1f);
+
+    }
+
+    public void SaveSnd()
+    {
+        Microphone.End(Microphone.devices[0].ToString());
+        bool check = SavWav.Save(Application.persistentDataPath+"/audio.wav", aud.clip);
+        
+        Debug.Log(check); //True Or False
+        Debug.Log("Microphone End and File Saved");
+        aud.Play();
+
     }
 
     public void PlaySnd()
     {
 
-        Debug.Log("1");
-        //SavWav.Save("C:/Users/SSAFY/Desktop/pjt 2/vr/S07P22A101/VR/Assets/Voice/voice1", aud.clip);
+        httprequest = GetComponent<server2>();
+        httprequest.Ready("불이야 불이야 불이야");
+        tempMic.enabled = false;
 
-        httprequest = GetComponent<server>();
-        httprequest.STTtext = "불이야";
-
-        Debug.Log(httprequest.STTtext);
-
-        AudioClip clip = aud.clip;
-        Debug.Log(clip);
-
-
-        float[] data = new float[clip.samples];
-        clip.GetData(data, 0);
-        int rescaleFactor = 32767;
-        byte[] outData = new byte[data.Length * 2];
-        Debug.Log(data);
-        for (int i = 0; i < data.Length; i++)
-        {
-            short temshort = (short)(data[i] * rescaleFactor);
-            byte[] temdata = BitConverter.GetBytes(temshort);
-            outData[i * 2] = temdata[0];
-            outData[i * 2 + 1] = temdata[1];
-        }
-
-        Debug.Log(outData);
-
-        httprequest.STTaudio = outData;
-
-        httprequest.Ready();
-        
-
-
-        Debug.Log("됐다!");
     }
 
     public void RecSnd()
     {
-
-        //aud.clip = Microphone.Start(Microphone.devices[0].ToString(), false, 10, 441000);
-
+        Debug.Log("Microphone Start");
+        aud.clip = Microphone.Start(Microphone.devices[0].ToString(), false, 5, 48000);
+        Invoke("SaveSnd", 5f);
+        
     }
 }
+
+
+// disabled = > Mic enabled = T
+// Start OnEnable = ()
