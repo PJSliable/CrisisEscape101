@@ -11,6 +11,7 @@ public class GasMaskInteraction : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
+        Debug.Log("GasMask ON");
         m_Interactable = GetComponent<XRBaseInteractable>();
         m_Interactable.firstSelectEntered.AddListener(OnFirstSelectEntered);
     }
@@ -21,7 +22,8 @@ public class GasMaskInteraction : MonoBehaviour
     {
         FireScenarioManager.isGasMaskOn = true;
         FireScenarioManager.GasMaskEffect();
-        Destroy(gameObject);
         Debug.Log("Wear GasMask!");
+        Destroy(gameObject);
+
     }
 }
