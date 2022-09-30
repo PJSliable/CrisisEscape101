@@ -17,14 +17,8 @@ def speech_processing(request):
     # similarity = text_similarity.ts(sentence)
     
     # error_rate_cal는 낮을수록 정확
-    # 현재까지 cer이 가장 정확했음.
-    # EX) "101번 차량에 불이났습니다"
     similarity = error_rate_cal.cer(text, stt_text)
     
-    # 정확도 떨어짐
-    # similarity = error_rate_cal.wer(text, stt_text)
-    
-    print('similarity: ',similarity)
-    if similarity <= 0.2: # 0.3
+    if similarity < 0.38: # 0.3-> 0.2 -> 0.38(유사하게 읽는 것들도 통과시키기 위한 목적)로 수정
         return Response(data={'message':True})
     return Response(data={'message':False})
