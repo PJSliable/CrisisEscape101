@@ -12,15 +12,15 @@ public class FireScenarioManager : MonoBehaviour
     public GameObject[] guideMessages;
     public static FireScenarioManager instance;
 
-    public GameObject object1;
-    public GameObject object2;
-    public GameObject object3;
-    public GameObject object4;
-    public GameObject object5;
-    public GameObject object6;
+    //public GameObject object1;
+    //public GameObject object2;
+    //public GameObject object3;
+    //public GameObject object4;
+    //public GameObject object5;
+    //public GameObject object6;
     public static Volume GasMask;
 
-    public static int stage = 0;
+    public static int stage = 7;
     public static bool isGasMaskOn = false;
     public static Vignette vg;
 
