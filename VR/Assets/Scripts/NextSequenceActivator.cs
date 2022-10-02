@@ -7,21 +7,26 @@ public class NextSequenceActivator : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public GameObject nextSeqObject;
-    XRBaseInteractable mInteractable;
+    //public GameObject nextSeqObject;
+    //XRBaseInteractable mInteractable;
     //public GameObject nextSeqGuidelines;
 
-    void Start()
+ /*   void Start()
     {
         mInteractable = GetComponent<XRBaseInteractable>();
         mInteractable.firstSelectEntered.AddListener(OnFirstSelectEntered);
     }
 
-    protected virtual void OnFirstSelectEntered(SelectEnterEventArgs args) => ActivateNextSequence();
+    public virtual void OnFirstSelectEntered(SelectEnterEventArgs args) => ActivateNextSequence();*/
 
-    void ActivateNextSequence ()
+    public void ActivateNextInteractable (GameObject nextSeqObject)
     {
-        nextSeqObject.GetComponent<XRGrabInteractable>().enabled = true;
-        nextSeqObject.GetComponent<Sequence>().enabled = true;
+        nextSeqObject.GetComponent<XRBaseInteractable>().enabled = true;
+        //nextSeqObject.GetComponent<Sequence>().enabled = true;
+    }
+
+    public void ActivateNextGuideline (GameObject nextSeqObject)
+    {
+        nextSeqObject.SetActive(true);
     }
 }
