@@ -13,6 +13,8 @@ public class Server : MonoBehaviour
 {
     GameObject item;
     GameObject temp;
+    public AudioSource tts;
+ 
     public void Ready(string stttext)
     {
 
@@ -27,15 +29,24 @@ public class Server : MonoBehaviour
 
         Debug.Log(response["message"]); //True Or False
         temp = GameObject.Find("STT1");
-        item = GameObject.Find("CanvasSTT1");
+
         if (response["message"] == "False")
         {
-            item.SetActive(true);
+            tts.Play();
+            Invoke("Failure", 2f);
+        }
+        else
+        {
+            temp.SetActive(false);
             temp.GetComponent<Mic>().enabled = false;
         }
 
     }
-
+    void Failure()
+    {
+        temp.SetActive(true);
+        temp.GetComponent<Mic>().enabled = true;
+    }
 
     private static string sendHttpRequest(string url, NameValueCollection values, NameValueCollection files = null)
     {

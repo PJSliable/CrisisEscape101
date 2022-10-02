@@ -9,6 +9,7 @@ public class Mic : MonoBehaviour
 {
     public AudioSource aud;
     public string sentence;
+    public AudioSource ring;
     Server httprequest;
     Mic tempMic;
 
@@ -20,6 +21,7 @@ public class Mic : MonoBehaviour
         aud = GetComponent<AudioSource>();
         tempMic = GetComponent<Mic>();
         Debug.Log("Audio source: " + aud, gameObject);
+        ring.Play();
         Invoke("RecSnd", 1f);
 
     }
@@ -31,7 +33,6 @@ public class Mic : MonoBehaviour
 
         Debug.Log(check); //True Or False
         Debug.Log("Microphone End and File Saved");
-        aud.Play();
 
     }
 
