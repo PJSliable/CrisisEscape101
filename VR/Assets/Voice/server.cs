@@ -9,10 +9,11 @@ using System.Text;
 using MiniJSON;
 using UnityEngine;
 
-public class Server : MonoBehaviour
+public class server : MonoBehaviour
 {
-    GameObject item;
-    GameObject temp;
+    public Mic tempMic;
+    public GameObject temp;
+    public int waitServerTime;
     public AudioSource tts;
  
     public void Ready(string stttext)
@@ -23,17 +24,17 @@ public class Server : MonoBehaviour
         NameValueCollection files = new NameValueCollection();
         values.Add("text", stttext);
         files.Add("audio", fileLocation);
-        string response_json = sendHttpRequest("http://127.0.0.1:8000/api/v1/processing/", values, files);
+        string response_json = sendHttpRequest("http://j7a101.p.ssafy.io:8080/api/v1/processing/", values, files);
 
         Dictionary<string, object> response = Json.Deserialize(response_json) as Dictionary<string, object>;
 
-        Debug.Log(response["message"]); //True Or False
-        temp = GameObject.Find("STT1");
 
-        if (response["message"] == "False")
+        Debug.Log(response["message"]); //True Or False
+
+        if (response["message"].Equals("False"))
         {
             tts.Play();
-            Invoke("Failure", 2f);
+            Invoke("Failure", waitServerTime);
         }
         else
         {
@@ -42,10 +43,14 @@ public class Server : MonoBehaviour
         }
 
     }
+
     void Failure()
     {
         temp.SetActive(true);
-        temp.GetComponent<Mic>().enabled = true;
+        Debug.Log("failure");
+        tempMic = temp.GetComponent<Mic>();
+        tempMic.enabled = true;
+        tempMic.RecSnd();
     }
 
     private static string sendHttpRequest(string url, NameValueCollection values, NameValueCollection files = null)
