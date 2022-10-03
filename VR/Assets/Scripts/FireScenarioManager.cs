@@ -12,12 +12,15 @@ public class FireScenarioManager : MonoBehaviour
     public GameObject[] guideMessages;
     public static FireScenarioManager instance;
 
-    public GameObject object1;
-    public GameObject object2;
-    public GameObject object3;
+    //public GameObject object1;
+    //public GameObject object2;
+    //public GameObject object3;
+    //public GameObject object4;
+    //public GameObject object5;
+    //public GameObject object6;
     public static Volume GasMask;
 
-    public static int stage = 0;
+    public static int stage = 7;
     public static bool isGasMaskOn = false;
     public static Vignette vg;
 
@@ -33,12 +36,12 @@ public class FireScenarioManager : MonoBehaviour
         GasMask.profile.TryGet(out vg);
 
 
-        object1.GetComponent<XRGrabInteractable>().enabled = true;
-        object1.GetComponent<Sequence>().enabled = true;
-        object2.GetComponent<XRGrabInteractable>().enabled = false;
-        object2.GetComponent<Sequence>().enabled = false;
-        object3.GetComponent<XRGrabInteractable>().enabled = false;
-        object3.GetComponent<Sequence>().enabled = false;
+        //object1.SetActive(false);
+        //object2.SetActive(false);
+        //object3.SetActive(false);
+        //object4.SetActive(false);
+        //object5.SetActive(false);
+        //object6.SetActive(false);
     }
 
 }

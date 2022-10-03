@@ -6,31 +6,19 @@ from . import error_rate_cal
 
 @api_view(['POST'])
 def speech_processing(request):
-    text = request.POST.get("text", None)
+    text = request.data.get("text", None)
+    speech_file = request.FILES.get("audio")
     
-    speech_file = request.FILES["audio"]
-    # speech_file = request.FILES.get('audio', None)
-    # if text == None or speech_file == None:
-    #     return Response(data={'message':"text or audio data is invalid"})
-    
-    print('text:',text)
     stt_text = speech_to_text.stt(speech_file)
 
     sentence = (text, stt_text)
-
+    print('(text, stt_text): ',sentence)
     # text_similarity. 코사인 유사도는 1이 가장 정확하고 나머지는 낮을수록 정확함.
     # similarity = text_similarity.ts(sentence)
     
     # error_rate_cal는 낮을수록 정확
-    # 현재까지 cer이 가장 정확했음.
-    # EX) "101번 차량에 불이났습니다"
     similarity = error_rate_cal.cer(text, stt_text)
     
-    # 정확도 떨어짐
-    # similarity = error_rate_cal.wer(text, stt_text)
-    
-    print('similarity: ',similarity)
-    if similarity <= 0.2: # 0.3
-        return Response(data={'message':True})
-    return Response(data={'message':False})
-    
+    if similarity < 0.38: # 0.3-> 0.2 -> 0.38(유사하게 읽는 것들도 통과시키기 위한 목적)로 수정
+        return Response(data={'message':'True'})
+    return Response(data={'message':'False'})
