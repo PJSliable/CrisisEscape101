@@ -10,7 +10,8 @@ public class Mic : MonoBehaviour
     public AudioSource aud;
     public string sentence;
     public AudioSource ring;
-    Server httprequest;
+    public int waitingTime;
+    server httprequest;
     Mic tempMic;
 
 
@@ -33,23 +34,25 @@ public class Mic : MonoBehaviour
 
         Debug.Log(check); //True Or False
         Debug.Log("Microphone End and File Saved");
+        httprequest = GetComponent<server>();
+        httprequest.Ready(sentence);
+        Debug.Log("playsound 끝");
 
     }
 
     public void PlaySnd()
     {
 
-        httprequest = GetComponent<Server>();
+        httprequest = GetComponent<server>();
         httprequest.Ready(sentence);
-        tempMic.enabled = false;
-
+        Debug.Log("playsound 끝");
     }
 
     public void RecSnd()
     {
         Debug.Log("Microphone Start");
-        aud.clip = Microphone.Start(Microphone.devices[0].ToString(), false, 5, 48000);
-        Invoke("SaveSnd", 5f);
+        aud.clip = Microphone.Start(Microphone.devices[0].ToString(), false, waitingTime, 48000);
+        Invoke("SaveSnd", waitingTime);
 
     }
 }
