@@ -20,5 +20,5 @@ def speech_processing(request):
     similarity = error_rate_cal.cer(text, stt_text)
     
     if similarity < 0.38: # 0.3-> 0.2 -> 0.38(유사하게 읽는 것들도 통과시키기 위한 목적)로 수정
-        return Response(data={'message':True})
-    return Response(data={'message':False})
+        return Response(data={'message':'True'})
+    return Response(data={'message':'False'})
