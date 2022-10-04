@@ -1,5 +1,4 @@
 def stt(speech_file):
-    import io
     from google.cloud import speech
 
     client = speech.SpeechClient()
