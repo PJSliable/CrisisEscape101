@@ -8,12 +8,13 @@ public class CallTrainDriverSequenceCondition : NextSequenceActivator
     // Start is called before the first frame update
 
     //public GameObject nextSeqObject;
+    public GameObject InteractableObject;
     XRBaseInteractable mInteractable;
     public GameObject nextSeqGuideline;
 
     void OnEnable()
     {
-        mInteractable = GetComponent<XRBaseInteractable>();
+        mInteractable = InteractableObject.GetComponent<XRBaseInteractable>();
         mInteractable.firstSelectEntered.AddListener(OnFirstSelectEntered);
     }
 
