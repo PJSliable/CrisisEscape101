@@ -7,7 +7,7 @@ public class GrabExtinguisherSequenceCondition : NextSequenceActivator
 
     public GameObject _XROrigin;
     public GameObject fireExtinguisher;
-    GameObject previous;
+    //GameObject previous;
     GameObject next;
     //public GameObject _parent;
 
@@ -15,7 +15,7 @@ public class GrabExtinguisherSequenceCondition : NextSequenceActivator
     {
         //_parent = gameObject.transform.parent.gameObject;
         //_XROrigin = GameObject.Find("XR Origin"); 
-        previous = gameObject.transform.GetChild(FireScenarioManager.stage - 1).gameObject;
+        //previous = gameObject.transform.GetChild(FireScenarioManager.stage - 1).gameObject;
         next = gameObject.transform.GetChild(FireScenarioManager.stage + 1).gameObject;
 
         Debug.Log(_XROrigin.transform.position);
@@ -24,10 +24,11 @@ public class GrabExtinguisherSequenceCondition : NextSequenceActivator
 
     void Update()
     {
-        if (FireScenarioManager.stage == 7 && Vector3.Distance(fireExtinguisher.transform.position,_XROrigin.transform.position) <= 2f)
+        if (FireScenarioManager.stage == 6 && Vector3.Distance(fireExtinguisher.transform.position,_XROrigin.transform.position) <= 2f)
         {
             FireScenarioManager.stage++;
-            next.SetActive(true);
+            base.ActivateNextGuideline(next);
+            base.ActivateNextInteractable(fireExtinguisher);
         }
     }
 }
