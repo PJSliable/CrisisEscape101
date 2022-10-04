@@ -5,7 +5,7 @@ using UnityEngine;
 public class AutoSequenceCondition : NextSequenceActivator
 {
 
-    public GameObject previous;
+    //public GameObject previous;
     public GameObject previousCanvas;
     public GameObject present;
 
@@ -13,8 +13,10 @@ public class AutoSequenceCondition : NextSequenceActivator
     {
         if (!previousCanvas.active)
         {
-            previous.SetActive(false);
+
             base.ActivateNextGuideline(present);
+            FireScenarioManager.stage++;
+            gameObject.SetActive(false);
             this.enabled = false;
         }
     }

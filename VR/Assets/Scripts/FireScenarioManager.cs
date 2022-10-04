@@ -20,7 +20,7 @@ public class FireScenarioManager : MonoBehaviour
     //public GameObject object6;
     public static Volume GasMask;
 
-    public static int stage = 6;
+    public static int stage = 0;
     public static bool isGasMaskOn = false;
     public static Vignette vg;
 

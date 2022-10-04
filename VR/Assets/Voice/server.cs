@@ -13,6 +13,7 @@ public class server : MonoBehaviour
 {
     public Mic tempMic;
     public GameObject temp;
+    public GameObject nextSequence;
     public int waitServerTime;
     public AudioSource tts;
  
@@ -40,6 +41,8 @@ public class server : MonoBehaviour
         {
             temp.SetActive(false);
             temp.GetComponent<Mic>().enabled = false;
+            FireScenarioManager.stage++;
+            nextSequence.SetActive(true);
         }
 
     }
