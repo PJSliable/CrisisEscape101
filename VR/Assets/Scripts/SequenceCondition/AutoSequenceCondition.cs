@@ -13,7 +13,7 @@ public class AutoSequenceCondition : NextSequenceActivator
     {
         if (!previousCanvas.active)
         {
-
+            Debug.Log(present.name);
             base.ActivateNextGuideline(present);
             FireScenarioManager.stage++;
             gameObject.SetActive(false);
