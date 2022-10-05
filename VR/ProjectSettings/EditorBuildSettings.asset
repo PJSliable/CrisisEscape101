@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Mainmenu.unity
+    guid: f934f01bb9cae5f4bb81a2975f6ea370
+  - enabled: 1
+    path: Assets/Scenes/text-mesh.unity
+    guid: bd9e37d6d0b91184d8dd556da7412000
+  - enabled: 1
     path: Assets/Scenes/WorldInteractionDemo.unity
     guid: 3d16fc5db26e2354e9ac2a5031a52e6d
   m_configObjects:
