@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:VR/Assets/Oculus/VR/Plugins/1.76.0/Win64/OVRPlugin.dll.disabled.meta
+guid: 79d3469dc20b43c4db17032022fd4c8f
+DefaultImporter:
+========
+guid: 13488c79ceaed7c4294a1b8e8d48de47
+PrefabImporter:
+>>>>>>>> develop:VR/Assets/Oculus/Interaction/Runtime/Prefabs/ControllerHands.prefab.meta
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
