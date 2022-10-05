@@ -21,7 +21,7 @@ public class FEXRayCastActor : MonoBehaviour
 
         RaycastHit hitInfo;
 
-        if (Physics.Raycast(this.transform.position, this.transform.TransformDirection(_direction), out hitInfo, 10.0f))
+        if (Physics.Raycast(this.transform.position, this.transform.TransformDirection(_direction), out hitInfo, 8.0f))
         {
             if (hitInfo.collider.gameObject.GetComponent<FlameAttribute>() != null)
             {
