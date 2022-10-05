@@ -26,9 +26,9 @@ public class CallTrainDriverSequenceCondition : NextSequenceActivator
         {
             base.ActivateNextGuideline(nextSeqGuideline);
             FireScenarioManager.stage++;
-            gameObject.SetActive(false);
             InteractableObject.GetComponent<Rigidbody>().useGravity = true;
             Debug.Log(InteractableObject.GetComponent<Rigidbody>().isKinematic);
+            gameObject.SetActive(false);
         }
     }
 

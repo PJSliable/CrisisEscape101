@@ -22,6 +22,8 @@ public class FireScenarioManager : MonoBehaviour
 
     public static int stage = 0;
     public static bool isGasMaskOn = false;
+    public static bool isOut = false;
+    public static bool isEnd = false;
     public static int fireNum = 1;
     public static Vignette vg;
 
