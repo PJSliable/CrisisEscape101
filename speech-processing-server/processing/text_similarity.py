@@ -38,6 +38,4 @@ def ts(sentence):
     md = manhattan_distances(tfidf_norm_l1[0:1], tfidf_norm_l1[1:2])
     print(md[0][0]) # 0 ~ 1 : 값이 작을수록 유사함
 
-
-    # 적합한 유사도 알고리즘 선택할 것. 정규화를 거친 ned, md 중에 하나를 선택하는 것이 좋아보임
-    return cs # ed, ned, md
+    return cs, ed, ned, md
