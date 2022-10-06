@@ -24,7 +24,7 @@ public class FireScenarioManager : MonoBehaviour
     public static bool isGasMaskOn = false;
     public static bool isOut = false;
     public static bool isEnd = false;
-    public static int fireNum = 1;
+    public static int fireNum = 3;
     public static Vignette vg;
 
     public static void GasMaskEffect()
