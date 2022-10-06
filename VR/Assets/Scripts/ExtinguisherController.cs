@@ -10,6 +10,7 @@ public class ExtinguisherController : MonoBehaviour
     XRBaseInteractable m_Interactable;
     ParticleSystem powderParticles;
     GameObject rayCastActor;
+    AudioSource spraySound;
 
     void OnEnable()
     {
@@ -20,6 +21,7 @@ public class ExtinguisherController : MonoBehaviour
         m_Interactable = GetComponent<XRBaseInteractable>();
         m_Interactable.firstSelectEntered.AddListener(OnFirstSelectEntered);
         m_Interactable.lastSelectExited.AddListener(OnLastSelectExited);
+        spraySound = GetComponent<AudioSource>();
     }
 
     protected virtual void OnLastSelectExited(SelectExitEventArgs args) => DeactivatePin();
@@ -31,6 +33,7 @@ public class ExtinguisherController : MonoBehaviour
             pinObject.GetComponent<XRBaseInteractable>().enabled = false;
         powderParticles.Stop();
         rayCastActor.SetActive(false);
+        spraySound.Stop();
     }
 
     void ActivatePin()
@@ -40,6 +43,7 @@ public class ExtinguisherController : MonoBehaviour
         if (pinObject == null || pinObject.GetComponent<Joint>() == null) {
             powderParticles.Play();
             rayCastActor.SetActive(true);
+            spraySound.Play();
         }
     }
 }
