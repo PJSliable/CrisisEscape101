@@ -16,7 +16,7 @@ public class server : MonoBehaviour
     public GameObject nextSequence;
     public int waitServerTime;
     public AudioSource tts;
- 
+
     public void Ready(string stttext)
     {
 
