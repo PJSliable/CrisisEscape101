@@ -1,3 +1,5 @@
+## :fire_engine: 위기탈출 1.0.1 :fire_engine: 
+
 ![로고](README.assets/logo.png)
 
 ## :man_firefighter: 화재 시뮬레이션 스크립트
