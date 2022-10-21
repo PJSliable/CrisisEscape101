@@ -1,4 +1,4 @@
-## :fire_engine: 위기탈출 1.0.1 :fire_engine: 
+# :fire_engine: 위기탈출 1.0.1 :fire_engine: 
 
 ![로고](README.assets/logo.png)
 
