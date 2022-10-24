@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -25,7 +25,7 @@ public class server : MonoBehaviour
         NameValueCollection files = new NameValueCollection();
         values.Add("text", stttext);
         files.Add("audio", fileLocation);
-        string response_json = sendHttpRequest("http://j7a101.p.ssafy.io:8080/api/v1/processing/", values, files);
+        string response_json = sendHttpRequest("", values, files);
 
         Dictionary<string, object> response = Json.Deserialize(response_json) as Dictionary<string, object>;
 
