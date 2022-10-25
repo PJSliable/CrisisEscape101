@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/node,vuejs,python,django,visualstudiocode,windows,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,vuejs,python,django,visualstudiocode,windows,macos
 
@@ -562,3 +561,12 @@ crashlytics-build.properties
 # End of https://www.toptal.com/developers/gitignore/api/unity
 
 # End of https://www.toptal.com/developers/gitignore/api/node,vuejs,python,django,visualstudiocode,windows,macos
+
+[core] 
+packedGitLimit = 512m 
+packedGitWindowSize = 512m 
+
+[pack] 
+deltaCacheSize = 2047m 
+packSizeLimit = 2047m 
+windowMemory = 2047m
